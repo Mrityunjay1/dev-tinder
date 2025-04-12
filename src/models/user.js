@@ -20,7 +20,11 @@ const userSchema = new mongoose.Schema({
         required:true
     },
     age:Number,
-    gender:String,
+    gender:{
+        type:String,
+        enum:{values:["male", "female", "other"], message: "Gender must be male, female, or other"},
+        default:"other"
+    },
     photoUrl:String,
     about:{
         type:String,
@@ -34,6 +38,7 @@ const userSchema = new mongoose.Schema({
         default:Date.now
     }
 });
+
 
 userSchema.methods.generateAuthToken = async function () {
     const user = this;
